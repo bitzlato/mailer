@@ -19,12 +19,12 @@ bundle install
 
 2. Configure barong database name (default - barong_development)
 ```
-export DATABASE_NAME=barong_database
+export DATABASE_NAME=barong_development
 ```
 
 3. Configure RabbitMQ connection url (default - amqp://guest:guest@localhost:567)
 ```
-export MAILER_EVENT_API_RABBITMQ_URL=amqp://guest:guest@localhost:5672 
+export MAILER_EVENT_API_RABBITMQ_URL=amqp://guest:guest@localhost:5672
 ```
 
 4. Start demon
@@ -43,7 +43,10 @@ and open  http://127.0.0.1:1080/
 <details>
   <summary>Variables list</summary>
 
-- **DATABASE_NAME** - *url of redis server with port (example: 'redis://localhost:6379/1')*
+- **PEATIO_JWT_PUBLIC_KEY** - peatio jwt public key
+- **BARONG_JWT_PUBLIC_KEY**  - barong jwt public key
+- **DATABASE_URL** - *url for database connection in stage and production environment (example: 'postgresql://127.0.0.1:5432/barong')*
+- **DATABASE_NAME** - *name of database, used in development and test environment (example: 'barong_development')*
 - **BUGSNAG_API_KEY** - *Notifier API key from [bugsnag](https://www.bugsnag.com) (example: QWE1234567890)*
 - **MAILER_EVENT_API_RABBITMQ_URL** - *(example: amqp://guest:guest@localhost:5672)*
 - **MAILER_DEFAULT_LANGUAGE** - *default language for emails, default en*
