@@ -27,11 +27,3 @@ development:
 test:
   <<: *default
   database: barong_test
-
-staging:
-  <<: *default
-  database: <%= ENV.fetch('DATABASE_NAME', 'barong_staging') %>
-
-production:
-  <<: *default
-  database: <%= ENV.fetch('DATABASE_NAME', 'barong_production') %>

@@ -20,7 +20,7 @@ class EventMailer
   def call
     listen
   end
-
+  
   private
 
   def listen

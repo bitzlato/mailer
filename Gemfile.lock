@@ -1,3 +1,16 @@
+GIT
+  remote: https://github.com/brandymint/capistrano-systemd-multiservice.git
+  revision: 47c98c65aa3d8f601efa4b947faf249c5abc9cab
+  specs:
+    capistrano-systemd-multiservice (0.1.0.beta12)
+      capistrano (>= 3.7.0, < 3.17.0)
+
+GIT
+  remote: https://github.com/brandymint/capistrano-tasks.git
+  revision: ed94c975c36a7ba41a173bddf6dba46034ca41e2
+  specs:
+    capistrano-tasks (0.0.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -66,14 +79,41 @@ GEM
       i18n (>= 1.6, < 2)
       minitest (>= 5.1)
       tzinfo (~> 2.0)
+    airbrussh (1.4.0)
+      sshkit (>= 1.6.1, != 1.7.0)
     amq-protocol (2.3.2)
     ast (2.4.2)
     bugsnag (6.24.2)
       concurrent-ruby (~> 1.0)
+    bugsnag-capistrano (2.1.0)
     builder (3.2.4)
     bunny (2.19.0)
       amq-protocol (~> 2.3, >= 2.3.1)
       sorted_set (~> 1, >= 1.0.2)
+    capistrano (3.16.0)
+      airbrussh (>= 1.0.0)
+      i18n
+      rake (>= 10.0.0)
+      sshkit (>= 1.9.0)
+    capistrano-bundler (2.0.1)
+      capistrano (~> 3.1)
+    capistrano-dotenv (0.0.5)
+      capistrano (>= 3.5.0, < 4.0.0)
+    capistrano-dotenv-tasks (0.1.5)
+      capistrano (~> 3.0)
+    capistrano-git-with-submodules (2.0.4)
+      capistrano (~> 3.7)
+    capistrano-rails (1.6.1)
+      capistrano (~> 3.1)
+      capistrano-bundler (>= 1.1, < 3)
+    capistrano-rails-console (2.3.0)
+      capistrano (>= 3.5.0, < 4.0.0)
+      sshkit-interactive (~> 0.3.0)
+    capistrano-rbenv (2.2.0)
+      capistrano (~> 3.1)
+      sshkit (~> 1.3)
+    capistrano-shell (0.2.0)
+      capistrano (~> 3.1)
     coderay (1.1.3)
     concurrent-ruby (1.1.9)
     crass (1.0.6)
@@ -119,10 +159,13 @@ GEM
     net-protocol (0.1.2)
       io-wait
       timeout
+    net-scp (3.0.0)
+      net-ssh (>= 2.6.5, < 7.0.0)
     net-smtp (0.3.1)
       digest
       net-protocol
       timeout
+    net-ssh (6.1.0)
     nio4r (2.5.8)
     nokogiri (1.13.1)
       mini_portile2 (~> 2.7.0)
@@ -204,6 +247,8 @@ GEM
     ruby-progressbar (1.11.0)
     semver2 (3.4.2)
     set (1.0.2)
+    slackistrano (4.0.1)
+      capistrano (>= 3.8.1)
     sorted_set (1.0.3)
       rbtree
       set (~> 1.0)
@@ -215,6 +260,11 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
+    sshkit (1.21.2)
+      net-scp (>= 1.1.2)
+      net-ssh (>= 2.8.0)
+    sshkit-interactive (0.3.0)
+      sshkit (~> 1.12)
     strscan (3.0.1)
     thor (1.2.1)
     timeout (0.2.0)
@@ -231,7 +281,19 @@ PLATFORMS
 
 DEPENDENCIES
   bugsnag
+  bugsnag-capistrano
   bunny
+  capistrano
+  capistrano-bundler
+  capistrano-dotenv
+  capistrano-dotenv-tasks
+  capistrano-git-with-submodules
+  capistrano-rails
+  capistrano-rails-console
+  capistrano-rbenv
+  capistrano-shell
+  capistrano-systemd-multiservice!
+  capistrano-tasks!
   debug
   dotenv
   foreman
@@ -244,6 +306,7 @@ DEPENDENCIES
   rspec-rails
   rubocop
   semver2 (~> 3.4)
+  slackistrano
   spring
   sprockets-rails
 
