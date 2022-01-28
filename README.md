@@ -1,3 +1,5 @@
+[![Ruby](https://github.com/bitzlato/mailer/actions/workflows/ruby.yml/badge.svg)](https://github.com/bitzlato/mailer/actions/workflows/ruby.yml)
+
 # Mailer
 Event based mailing system: support multi-language, secured by cryptographic signatures
 

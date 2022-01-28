@@ -1,0 +1,66 @@
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+# This workflow will download a prebuilt Ruby version, install dependencies and run tests with Rake
+# For more information see: https://github.com/marketplace/actions/setup-ruby-jruby-and-truffleruby
+
+name: Ruby
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test:
+    env:
+      RAILS_ENV: test
+      DATABASE_HOST: 127.0.0.1
+      DATABASE_USER: postgres
+      DATABASE_PASS: postgres
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby-version: ['2.7.5']
+    services:
+      # Label used to access the service container
+      postgres:
+        image: postgres:13
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        env:
+          # required
+          POSTGRES_PASSWORD: postgres
+      rabbitmq:
+        image: rabbitmq:3.7.6-management
+        volumes:
+          - rabbitmq_data:/var/lib/rabbitmq
+        ports:
+          - "5672:5672"
+          - "15672:15672"
+        options: >-
+          --health-cmd "rabbitmqctl node_health_check"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby-version }}
+        bundler-cache: true # runs 'bundle install' and caches installed gems automatically
+    - name: Bundle install
+      run: bundle install
+    - name: Setup database
+      run: bundle exec rake db:create db:migrate
+    - name: Run specs
+      run: bundle exec rake
