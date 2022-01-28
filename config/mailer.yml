@@ -1,0 +1,166 @@
+keychain:
+  barong:
+    algorithm: RS256
+    value: "<%= ENV['JWT_PUBLIC_KEY'] %>"
+  peatio:
+    algorithm: RS256
+    value: "<%= ENV['PEATIO_JWT_PUBLIC_KEY'] %>"
+# custom:
+#   algorithm: RS256
+#   value: <%= ENV['CUSTOM_JWT_PUBLIC_KEY'] %>
+
+exchanges:
+  barong_system:
+    name: barong.events.system
+    signer: barong
+  barong_model:
+    name: barong.events.model
+    signer: barong
+  peatio:
+    name: peatio.events.model
+    signer: peatio
+
+events:
+  - name: Email Confirmation
+    key: user.email.confirmation.token
+    exchange: barong_system
+    templates:
+      en:
+        subject: Registration Confirmation
+        template_path: email_confirmation
+      ru:
+        subject: Подтверждение Регистрации
+        template_path: email_confirmation
+
+  - name: Password Reset
+    key: user.password.reset.token
+    exchange: barong_system
+    templates:
+      en:
+        subject: Password Reset
+        template_path: password_reset
+      ru:
+        subject: Сброс Пароля
+        template_path: password_reset
+
+  - name: 2FA Activated
+    key: label.created
+    expression:
+      and:
+        record.key: "otp"
+    exchange: barong_model
+    templates:
+      en:
+        subject: "[Bitzlato Exchange] 2FA Activated"
+        template_path: 2fa_activated
+
+  - name: Label Updated
+    key: label.updated
+    exchange: barong_model
+    templates:
+      en:
+        subject: Label Updated
+        template_path: label
+
+  - name: Session Create
+    key: session.create
+    exchange: barong_system
+    templates:
+      en:
+        subject: New Login
+        template_path: session_create
+
+  - name: Deposit Updated
+    key: deposit.updated
+    exchange: peatio
+    templates:
+      en:
+        subject: Deposit Updated
+        template_path: deposit_updated
+
+  - name: Withdrawal Succeed
+    key: withdraw.updated
+    expression:
+      and:
+        record.state: 'succeed'
+    exchange: peatio
+    templates:
+      en:
+        subject: Withdrawal Succeed
+        template_path: withdraw_updated
+
+  - name: Withdrawal Rejected
+    key: withdraw.updated
+    expression:
+      and:
+        record.state: 'rejected'
+    exchange: peatio
+    templates:
+      en:
+        subject: Withdrawal Rejected
+        template_path: withdraw_updated
+
+  - name: Withdrawal Canceled
+    key: withdraw.updated
+    expression:
+      and:
+        record.state: 'canceled'
+    exchange: peatio
+    templates:
+      en:
+        subject: Withdrawal Canceled
+        template_path: withdraw_updated
+
+  - name: Withdrawal Failed
+    key: withdraw.updated
+    expression:
+      and:
+        record.state: 'failed'
+    exchange: peatio
+    templates:
+      en:
+        subject: Withdrawal Failed
+        template_path: withdraw_updated
+
+  - name: Withdrawal Errored
+    key: withdraw.updated
+    expression:
+      and:
+        record.state: 'errored'
+    exchange: peatio
+    templates:
+      en:
+        subject: Withdrawal Errored
+        template_path: withdraw_updated
+
+  - name: New Beneficiary
+    key: beneficiary.created
+    exchange: peatio
+    templates:
+      en:
+        subject: New Beneficiary
+        template_path: new_beneficiary
+
+  - name: Beneficiary Pin Resend
+    key: beneficiary.updated
+    expression:
+      not:
+        changes.pin: null
+    exchange: peatio
+    templates:
+      en:
+        subject: Beneficiary Pin
+        template_path: beneficiary_pin
+
+  # expression example
+  # - name: Session Create
+  #   key: session.create
+  #   expression:
+  #     and:                          # need to use and/or/not operator here
+  #       record.user_ip: '::1'       # full patch to key
+  #       record.user.role: 'member'
+  #   exchange: barong_system
+  #   templates:
+  #     en:
+  #       subject: New Login
+  #       template_path: session_create

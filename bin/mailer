@@ -1,0 +1,31 @@
+#!/usr/bin/env ruby
+
+# frozen_string_literal: true
+
+require File.expand_path('../../config/environment', __FILE__)
+require 'erb'
+
+class MailerListener
+  extend GLI::App
+
+  program_desc 'Notification Hub'
+
+  flag :config, desc: 'Path to mailer config file', default_value: 'config/mailer.yml'
+
+  command :stop do |c|
+    c.action do
+    end
+  end
+
+  command :run do |c|
+    c.desc 'Run processing email events'
+    c.action do |global_options, _options, _args|
+      raw_file = File.read(global_options[:config])
+      config = YAML.safe_load(ERB.new(raw_file).result).deep_symbolize_keys
+
+      EventMailer.call(config[:events], config[:exchanges], config[:keychain])
+    end
+  end
+end
+
+exit MailerListener.run(ARGV)

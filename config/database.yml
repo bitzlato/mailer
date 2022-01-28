@@ -1,0 +1,37 @@
+# Peatio database
+#
+default: &default
+  adapter: <%= ENV.fetch('DATABASE_ADAPTER', 'postgresql') %>
+  encoding: utf8
+  support_json: <%= ENV.fetch('DATABASE_SUPPORT_JSON', 'true') %>
+  <% if ENV.key?('DATABASE_COLLATION') %>
+  collation: <%= ENV.fetch('DATABASE_COLLATION', 'C') %>
+  <% end %>
+  pool: <%= ENV.fetch('DATABASE_POOL', ENV.fetch("RAILS_MAX_THREADS", 8).to_i * ENV.fetch("WEB_CONCURRENCY", 1).to_i) %>
+  <% if ENV.key?('DATABASE_HOST') %>
+  host: <%= ENV.fetch('DATABASE_HOST', '127.0.0.1') %>
+  <% end %>
+  port: <%= ENV.fetch('DATABASE_PORT', 5432) %>
+  <% if ENV.key?('DATABASE_USER') %>
+  username: <%= ENV.fetch('DATABASE_USER', `whoami`.chomp) %>
+  <% end %>
+  <% if ENV.key?('DATABASE_PASS') %>
+  password: <%= ENV['DATABASE_PASS'] %>
+  <% end %>
+  # database_tasks: false
+
+development:
+  <<: *default
+  database: <%= ENV.fetch('DATABASE_NAME', 'barong_development') %>
+
+test:
+  <<: *default
+  database: barong_test
+
+staging:
+  <<: *default
+  database: <%= ENV.fetch('DATABASE_NAME', 'barong_staging') %>
+
+production:
+  <<: *default
+  database: <%= ENV.fetch('DATABASE_NAME', 'barong_production') %>
