@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Postmaster, type: :mailer do
   describe '#process_payload' do
     let!(:user) { OpenStruct.new(email: 'test1@gmail.com') }
-    let(:record) { OpenStruct.new(domain: 'barong.com', token: 'blah-blah' ) }
+    let(:record) { OpenStruct.new(currency: 'BTC', amount: 1.5, tid: 'TID', state: 'invoiced') }
     let(:locale) { :en }
     let(:payload) do
       {
@@ -13,9 +13,8 @@ RSpec.describe Postmaster, type: :mailer do
         changes: nil,
         record: record,
         subject: 'Test Email',
-        template_name: 'email_confirmation',
+        template_name: 'deposit_updated',
         logo: 'https://storage.googleapis.com/public_peatio/logo.png',
-        signature: '<span>Company Inc, 3 Abbey Road, San Francisco CA 94102, USA</span><br><a href="http://opendax.io">opendax.io</a>'.html_safe,
         locale: locale,
       }
     end
@@ -29,15 +28,16 @@ RSpec.describe Postmaster, type: :mailer do
 
     context 'with en locale' do
       it 'renders the body in en language' do
-        expect(mail.body.encoded).to match('Use this unique link to confirm your email test1@gmail.com')
+        expect(mail.body.encoded).to match('Your deposit #TID of 1.5 BTC has been <b>invoiced</b>')
       end
     end
 
-    context 'with ru locale' do 
+    context 'with ru locale' do
       let(:locale) { :ru }
 
       it 'renders the body in ru language' do
-        expect(mail.body.encoded).to match('Используйте эту уникальную ссылку для подтверждения вашей почты test1@gmail.com')
+        expect(mail.body.encoded).to match('Ваше пополнение #TID в размере 1.5 BTC сменило статус.')
+        expect(mail.body.encoded).to match('Новый статус: <b>выставлен счет</b>')
       end
     end
   end

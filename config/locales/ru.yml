@@ -1,0 +1,14 @@
+ru:
+  postmaster:
+    deposit_updated:
+      new_state:
+        submitted: создан
+        invoiced: выставлен счет
+        canceled: отменен
+        rejected: отклонен
+        accepted: принят
+        skipped: пропущен
+        dispatched: отправлен
+        errored: ошибка
+        refunding: возврат
+        rolledback: возврат

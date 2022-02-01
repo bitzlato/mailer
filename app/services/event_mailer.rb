@@ -20,7 +20,7 @@ class EventMailer
   def call
     listen
   end
-  
+
   private
 
   def listen
@@ -139,8 +139,7 @@ class EventMailer
       locale: language,
       record: obj.record,
       changes: obj.changes,
-      user: user,
-      signature: Mailer::App.config.smtp_signature.html_safe
+      user: user
     }
 
     Postmaster.process_payload(params).deliver_now
