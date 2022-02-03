@@ -1,0 +1,6 @@
+<img src="https://bitzlato.com/static/notifications.png" alt="Bitzlato" class ='mainImg'>
+<h1 align="center">Произошла смена статуса пополнения </h1>
+<h2>Ваше пополнение #<%= @record.tid %> в размере <%= @record.amount %> <%= @record.currency %> сменило статус.</h2>
+<h2>Новый статус: <b><%= t(".new_state.#{@record.state}") %></b>.</h2>
+<h2 class = 'bold'>Удачных сделок!</h2>
+<h2 class ='bz'>Команда Bitzlato!</h2>

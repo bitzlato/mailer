@@ -1,0 +1,28 @@
+<img src="https://bitzlato.com/static/notifications.png" alt="Bitzlato" class ='mainImg'>
+<h1 align="center">Приветствуем!</h1>
+<h2>
+  <% if @record.value == "verified" %>
+    Поздравляем, данные вашей учетной записи успешно обновлены.
+  <% end %>
+  <% if @record.value == "rejected" %>
+    К сожалению, данные вашей учетной записи были отклонены.
+  <% end %>
+  Текущий уровень вашей учетной записи: <b><%= @record.user.level %></b>.
+  Состояние вашей учетной записи: <b><%= @record.user.state %></b>.
+</h2>
+<h2>
+  <% if @record.key == "profile" %>
+    Недавно ваш профиль пользователя был <%= @record.value %>.
+  <% end %>
+  <% if @record.key == "id_document" %>
+    Недавно вашим основным документом был <%= @record.value %>.
+  <% end %>
+  <% if @record.key == "second_document" %>
+    Недавно вашим вторым документом был <% @record.value %>.
+  <% end %>
+  <% if @record.key == "institutional" %>
+    Недавно ваш институциональный документ был <%= @record.value %>.
+  <% end%>
+</h2>
+<h2 class = 'bold'>Удачных сделок!</h2>
+<h2 class ='bz'>Команда Bitzlato!</h2>

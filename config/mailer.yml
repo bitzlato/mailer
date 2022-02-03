@@ -50,6 +50,9 @@ events:
       en:
         subject: "[Bitzlato Exchange] 2FA Activated"
         template_path: 2fa_activated
+      ru:
+        subject: "[Bitzlato Exchange] 2FA активирована"
+        template_path: 2fa_activated
 
   - name: Label Updated
     key: label.updated
@@ -57,6 +60,9 @@ events:
     templates:
       en:
         subject: Label Updated
+        template_path: label
+      ru:
+        subject: Ярлык обновлен
         template_path: label
 
   - name: Session Create
@@ -66,6 +72,9 @@ events:
       en:
         subject: New Login
         template_path: session_create
+      ru:
+        subject: Новый вход
+        template_path: session_create
 
   - name: Deposit Updated
     key: deposit.updated
@@ -73,6 +82,9 @@ events:
     templates:
       en:
         subject: Deposit Updated
+        template_path: deposit_updated
+      ru:
+        subject: Депозит обновлен
         template_path: deposit_updated
 
   - name: Withdrawal Succeed
@@ -85,6 +97,9 @@ events:
       en:
         subject: Withdrawal Succeed
         template_path: withdraw_updated
+      ru:
+        subject: Вывод средств выполнен успешно
+        template_path: withdraw_updated
 
   - name: Withdrawal Rejected
     key: withdraw.updated
@@ -95,6 +110,9 @@ events:
     templates:
       en:
         subject: Withdrawal Rejected
+        template_path: withdraw_updated
+      ru:
+        subject: Вывод средств отклонен
         template_path: withdraw_updated
 
   - name: Withdrawal Canceled
@@ -107,6 +125,9 @@ events:
       en:
         subject: Withdrawal Canceled
         template_path: withdraw_updated
+      ru:
+        subject: Вывод средств отменен
+        template_path: withdraw_updated
 
   - name: Withdrawal Failed
     key: withdraw.updated
@@ -117,6 +138,9 @@ events:
     templates:
       en:
         subject: Withdrawal Failed
+        template_path: withdraw_updated
+      ru:
+        subject: Вывод не выполнен
         template_path: withdraw_updated
 
   - name: Withdrawal Errored
@@ -129,6 +153,9 @@ events:
       en:
         subject: Withdrawal Errored
         template_path: withdraw_updated
+      ru:
+        subject: Ошибка при выводе
+        template_path: withdraw_updated
 
   - name: New Beneficiary
     key: beneficiary.created
@@ -136,6 +163,9 @@ events:
     templates:
       en:
         subject: New Beneficiary
+        template_path: new_beneficiary
+      ru:
+        subject: Новый бенефициар
         template_path: new_beneficiary
 
   - name: Beneficiary Pin Resend
@@ -147,6 +177,9 @@ events:
     templates:
       en:
         subject: Beneficiary Pin
+        template_path: beneficiary_pin
+      ru:
+        subject: Пин-код бенефициарa
         template_path: beneficiary_pin
 
   # expression example

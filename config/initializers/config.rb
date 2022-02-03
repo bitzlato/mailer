@@ -12,7 +12,6 @@ Mailer::App.define do |config|
   config.set(:smtp_host, 'localhost')
   config.set(:smtp_user, '')
   config.set(:smtp_logo_link, 'https://storage.cloud.google.com/public_peatio/logo.png')
-  config.set(:smtp_signature, '<span>Company Inc, 3 Abbey Road, San Francisco CA 94102, USA</span><br><a href="http://opendax.io">opendax.io</a>')
 end
 
 ActionMailer::Base.smtp_settings = {

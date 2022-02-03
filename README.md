@@ -57,5 +57,4 @@ and open  http://127.0.0.1:1080/
 - **MAILER_SMTP_HOST** - *smtp setting host*
 - **MAILER_SMTP_USER** - *smtp setting user*
 - **MAILER_SMTP_LOGO_LINK** - *link to logo in emails*
-- **MAILER_SMTP_SIGNATURE** - *signature in footer, can be html code*
 
