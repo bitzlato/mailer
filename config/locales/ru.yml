@@ -12,3 +12,10 @@ ru:
         errored: ошибка
         refunding: возврат
         rolledback: возврат
+    withdraw_updated:
+      new_state:
+        errored: ошибка
+        failed: не выполнен
+        canceled: отменен
+        rejected: отклонен
+        succeed: успешно

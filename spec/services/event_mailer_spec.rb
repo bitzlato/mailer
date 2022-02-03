@@ -33,7 +33,7 @@ describe EventMailer do
     end
   end
 
-  describe "#skip_event" do
+  describe "#skip_event?" do
     context 'AND expression' do
       let(:expression) { {
         :and=>
@@ -42,12 +42,12 @@ describe EventMailer do
       }
 
       it 'should skip event' do
-        expect(event_mailer.send(:skip_event, event, expression)).to eq true
+        expect(event_mailer.send(:skip_event?, event, expression)).to eq true
       end
 
       it 'shouldnt skip event' do
         expression[:and][:"record.user.role"] = 'admin'
-        expect(event_mailer.send(:skip_event, event, expression)).to eq false
+        expect(event_mailer.send(:skip_event?, event, expression)).to eq false
       end
     end
 
@@ -59,12 +59,12 @@ describe EventMailer do
       }
 
       it 'shouldnt skip event' do
-        expect(event_mailer.send(:skip_event, event, expression)).to eq false
+        expect(event_mailer.send(:skip_event?, event, expression)).to eq false
       end
 
       it 'should skip event' do
         expression[:or][:"record.user_ip"] = 'test'
-        expect(event_mailer.send(:skip_event, event, expression)).to eq true
+        expect(event_mailer.send(:skip_event?, event, expression)).to eq true
       end
     end
 
@@ -76,22 +76,22 @@ describe EventMailer do
       }
 
       it 'shoul skip event' do
-        expect(event_mailer.send(:skip_event, event, expression)).to eq true
+        expect(event_mailer.send(:skip_event?, event, expression)).to eq true
       end
 
       it 'shouldnt skip event' do
         expression[:not][:"record.user_ip"] = 'test'
-        expect(event_mailer.send(:skip_event, event, expression)).to eq false
+        expect(event_mailer.send(:skip_event?, event, expression)).to eq false
       end
 
       it 'should skip event' do
         expression[:not][:'record.user.email'] = 'admin@barong.io'
-        expect(event_mailer.send(:skip_event, event, expression)).to eq true
+        expect(event_mailer.send(:skip_event?, event, expression)).to eq true
       end
 
       it 'shouldnt skip event' do
         expression[:not][:'record.user.email'] = 'admin1@barong.io'
-        expect(event_mailer.send(:skip_event, event, expression)).to eq false
+        expect(event_mailer.send(:skip_event?, event, expression)).to eq false
       end
     end
   end

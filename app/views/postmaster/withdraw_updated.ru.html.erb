@@ -1,5 +1,6 @@
 <img src="https://bitzlato.com/static/notifications.png" alt="Bitzlato" class ='mainImg'>
-<h1 align="center">Вывод <%= @record.state %></h1>
-<h2>Ваш вывод #<%= @record.tid %> в размере <%= @record.amount %> <%= @record.currency %> был <b><%= @record.state %></b>.</h2>
+<h1 align="center">Произошла смена статуса вывода</h1>
+<h2>Ваш вывод #<%= @record.tid %> в размере <%= @record.amount %> <%= @record.currency %> сменил статус.
+<h2>Новый статус: <b><%= t(".new_state.#{@record.state}") %></b>.</h2>
 <h2 class = 'bold'>Удачных сделок!</h2>
 <h2 class ='bz'>Команда Bitzlato!</h2>
