@@ -7,7 +7,6 @@ class EventMailer
   Error = Class.new(StandardError)
 
   class VerificationError < Error; end
-  class SkipEvent < Error; end
 
   def initialize(events, exchanges, keychain)
     @events = events
@@ -109,10 +108,10 @@ class EventMailer
     raise VerificationError, "Failed to verify signature from #{signer}." \
       unless result[:verified].include?(signer.to_sym)
 
-    config = @events.find do |event|
+    configs = @events.select do |event|
       event[:key] == delivery_info[:routing_key] &&
         event[:exchange] == exchange_id
-    end.presence || raise("No config found for #{delivery_info}")
+    end.presence || raise("No configs found for #{delivery_info}")
 
     event = result[:payload].fetch(:event)
     obj   = JSON.parse(event.to_json, object_class: OpenStruct)
@@ -120,35 +119,35 @@ class EventMailer
     user  = User.find_by(uid: obj.record.user.uid)
     language = user.language.downcase.to_sym
     Rails.logger.warn { "User #{user.email} has '#{language}' email language" }
-    template_config = config.fetch( :templates ).transform_keys(&:downcase)
 
-    unless template_config.keys.include?(language)
-      Rails.logger.error { "Language #{language} is not supported. Skipping." }
-      raise SkipEvent
+    configs.each do |config|
+      template_config = config.fetch(:templates).transform_keys(&:downcase)
+
+      unless template_config.keys.include?(language)
+        Rails.logger.error { "Language #{language} is not supported. Skipping." }
+        next
+      end
+
+      if config[:expression].present? && skip_event?(event, config[:expression])
+        Rails.logger.warn { "Event #{obj.name} skipped by expression - #{config[:expression]}" }
+        next
+      end
+
+      params = {
+        logo: Mailer::App.config.smtp_logo_link,
+        subject: template_config[language][:subject],
+        template_name: template_config[language][:template_path],
+        locale: language,
+        record: obj.record,
+        changes: obj.changes,
+        user: user
+      }
+
+      Postmaster.process_payload(params).deliver_now
     end
-
-    if config[:expression].present? && skip_event(event, config[:expression])
-      Rails.logger.warn { "Event #{obj.name} skipped" }
-      raise SkipEvent
-    end
-
-    params = {
-      logo: Mailer::App.config.smtp_logo_link,
-      subject: template_config[language][:subject],
-      template_name: template_config[language][:template_path],
-      locale: language,
-      record: obj.record,
-      changes: obj.changes,
-      user: user
-    }
-
-    Postmaster.process_payload(params).deliver_now
 
     # Acknowledges a message
     # Acknowledged message is completely removed from the queue
-    @bunny_channel.ack(delivery_info.delivery_tag)
-
-  rescue SkipEvent => e
     @bunny_channel.ack(delivery_info.delivery_tag)
   rescue JWT::ExpiredSignature, JWT::VerificationError, VerificationError => e
     report_exception e
@@ -170,7 +169,7 @@ class EventMailer
                              options.compact
   end
 
-  def skip_event(event, expression)
+  def skip_event?(event, expression)
     # valid operators: and / or / not
     operator = expression.keys.first.downcase
     # { field_name: field_value }
