@@ -117,14 +117,13 @@ class EventMailer
     obj   = JSON.parse(event.to_json, object_class: OpenStruct)
 
     user  = User.find_by(uid: obj.record.user.uid)
-    language = user.language.downcase.to_sym
-    Rails.logger.warn { "User #{user.email} has '#{language}' email language" }
+    Rails.logger.warn { "User #{user.email} has '#{user.language}' email language" }
 
     configs.each do |config|
       template_config = config.fetch(:templates).transform_keys(&:downcase)
 
-      unless template_config.keys.include?(language)
-        Rails.logger.error { "Language #{language} is not supported. Skipping." }
+      unless template_config.keys.include?(user.language)
+        Rails.logger.error { "Language #{user.language} is not supported. Skipping." }
         next
       end
 
@@ -134,13 +133,12 @@ class EventMailer
       end
 
       params = {
-        logo: Mailer::App.config.smtp_logo_link,
-        subject: template_config[language][:subject],
-        template_name: template_config[language][:template_path],
-        locale: language,
+        subject: template_config[user.language][:subject],
+        template_name: template_config[user.language][:template_path],
+        email: user.email,
+        locale: user.language,
         record: obj.record,
         changes: obj.changes,
-        user: user
       }
 
       Postmaster.process_payload(params).deliver_now
