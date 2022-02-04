@@ -4,7 +4,7 @@ set :stage, :production
 set :rails_env, :production
 fetch(:default_env)[:rails_env] = :production
 
-server ENV.fetch('PRODUCION_SERVER'),
+server ENV.fetch('PRODUCTION_SERVER'),
        user: 'app',
        port: '22',
        roles: %w[mailer].freeze,
