@@ -124,6 +124,11 @@ GEM
     digest (3.1.0)
     dotenv (2.7.6)
     erubi (1.10.0)
+    factory_bot (6.2.0)
+      activesupport (>= 5.0.0)
+    factory_bot_rails (6.2.0)
+      factory_bot (~> 6.2.0)
+      railties (>= 5.0.0)
     foreman (0.87.2)
     gli (2.19.2)
     globalid (1.0.0)
@@ -296,6 +301,7 @@ DEPENDENCIES
   capistrano-tasks!
   debug
   dotenv
+  factory_bot_rails
   foreman
   gli (~> 2.19.0)
   jwt (~> 2.3.0)

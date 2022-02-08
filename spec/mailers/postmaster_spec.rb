@@ -4,17 +4,15 @@ require 'rails_helper'
 
 RSpec.describe Postmaster, type: :mailer do
   describe '#process_payload' do
-    let!(:user) { OpenStruct.new(email: 'test1@gmail.com') }
     let(:record) { OpenStruct.new(currency: 'BTC', amount: 1.5, tid: 'TID', state: 'invoiced') }
     let(:locale) { :en }
+    let(:email) { 'test1@gmail.com' }
     let(:payload) do
       {
-        user: user,
-        changes: nil,
+        email: email,
         record: record,
         subject: 'Test Email',
         template_name: 'deposit_updated',
-        logo: 'https://storage.googleapis.com/public_peatio/logo.png',
         locale: locale,
       }
     end

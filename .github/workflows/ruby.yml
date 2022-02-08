@@ -39,18 +39,6 @@ jobs:
         env:
           # required
           POSTGRES_PASSWORD: postgres
-      rabbitmq:
-        image: rabbitmq:3.7.6-management
-        volumes:
-          - rabbitmq_data:/var/lib/rabbitmq
-        ports:
-          - "5672:5672"
-          - "15672:15672"
-        options: >-
-          --health-cmd "rabbitmqctl node_health_check"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
     steps:
     - uses: actions/checkout@v2
     - name: Set up Ruby
@@ -61,6 +49,6 @@ jobs:
     - name: Bundle install
       run: bundle install
     - name: Setup database
-      run: bundle exec rake db:create db:migrate
+      run: bundle exec rake db:create db:schema:load
     - name: Run specs
       run: bundle exec rake
