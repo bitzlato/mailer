@@ -58,6 +58,8 @@ staging:
     url: <%= ENV['BITZLATO_DATABASE_URL'] %>
 
 production:
+  primary:
+    url: <%= ENV['DATABASE_URL'] %>
   bitzlato:
     url: <%= ENV['BITZLATO_DATABASE_URL'] %>
 
