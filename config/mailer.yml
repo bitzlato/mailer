@@ -5,6 +5,9 @@ keychain:
   peatio:
     algorithm: RS256
     value: "<%= ENV['PEATIO_JWT_PUBLIC_KEY'] %>"
+  p2p:
+    algorithm: RS256
+    value: "<%= ENV['P2P_JWT_PUBLIC_KEY'] %>"
 
 exchanges:
   barong_system:
@@ -16,6 +19,9 @@ exchanges:
   peatio:
     name: peatio.events.model
     signer: peatio
+  p2p:
+    name: p2p.events.email
+    signer: p2p
 
 events:
   - name: Email Confirmation
@@ -181,6 +187,40 @@ events:
       ru:
         subject: Пин-код бенефициарa
         template_path: beneficiary_pin
+
+  - name: API key registration
+    key: api_key.registration
+    exchange: p2p
+    templates:
+      en:
+        subject: API key registration
+        template_path: p2p/api_key_registration
+      ru:
+        subject: Создание API ключа
+        template_path: p2p/api_key_registration
+
+  - name: Withdrawal request
+    key: withdrawal.request
+    exchange: p2p
+    templates:
+      en:
+        subject: Withdrawal request
+        template_path: p2p/withdrawal_request
+      ru:
+        subject: Запрос Вывода
+        template_path: p2p/withdrawal_request
+
+  - name: Voucher creation
+    key: voucher.creation
+    exchange: p2p
+    templates:
+      en:
+        subject: Voucher creation
+        template_path: p2p/voucher_creation
+      ru:
+        subject: Создание Чека
+        template_path: p2p/voucher_creation
+
 
   # expression example
   # - name: Session Create

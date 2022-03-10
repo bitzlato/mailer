@@ -1,0 +1,49 @@
+<%= content_for(:header, 'Запрос Вывода') %>
+<tr>
+  <td>
+    <table style="max-width: 600px; width: 100%;padding: 0;margin: 20px 0;" border="0" cellpadding="0" cellspacing="0">
+      <tbody>
+        <tr>
+          <td>
+            <div style="margin: 0 0 5px;">
+              <span style="color:#000000; font: 16px 'Times New Roman', Times, serif;line-height: 25px;-webkit-text-size-adjust: none;">
+                Вы начали операцию по созданию Вывода
+              </span>
+              <span style="color:#000000; font: 18px 'Times New Roman', Times, serif; line-height: 25px; font-weight: 600;-webkit-text-size-adjust: none;">
+                <%= number_with_precision(@record.cmdParams.amount, precision: 100, strip_insignificant_zeros: true) %>
+              </span>
+              <span style="color:#000000; font: 16px 'Times New Roman', Times, serif;line-height: 25px;-webkit-text-size-adjust: none;">
+                <%= @record.cmdParams.cryptocurrency %>
+                <%= l(Time.parse(@record.issuedAt)) %>
+                на этот адрес:
+                <%= @record.cmdParams.address %>
+              </span>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <span style="color:#000000; font: 16px 'Times New Roman', Times, serif; line-height: 25px;-webkit-text-size-adjust: none;">
+              Прежде чем подтвердить операцию, пожалуйста, внимательно проверьте адрес на который вы отправляете монеты и сумму. Убедитесь в правильности введенных данных, иначе вы рискуете безвозвратно потерять свои средства!
+            </span>
+          </td>
+        </tr>
+        <tr>
+        <tr>
+          <td>
+            <div style="background-color: #212473; width: 100%;height: 40px;margin: 30px auto 0;border: 2px solid #c6c5c5;border-radius: 10px;">
+              <center style="margin: 8px;">
+                <a style="text-decoration-line: none; color:#ffffff; font: 14px 'Times New Roman', Times, serif; line-height: 25px;-webkit-text-size-adjust: none;text-align: center;width: 100%;display: block;"
+                    href=<%= @record.confirmationUrl %>
+                    target="_blank"
+                    rel="noreferrer">
+                  Подтвердить операцию
+                </a>
+              </center>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </td>
+</tr>

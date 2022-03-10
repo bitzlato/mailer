@@ -116,7 +116,8 @@ class EventMailer
     event = result[:payload].fetch(:event)
     obj   = JSON.parse(event.to_json, object_class: OpenStruct)
 
-    user  = User.find_by(uid: obj.record.user.uid)
+    user = fetch_user(obj.record.user)
+
     Rails.logger.warn { "User #{user.email} has '#{user.language}' email language" }
 
     configs.each do |config|
@@ -139,6 +140,7 @@ class EventMailer
         locale: user.language,
         record: obj.record,
         changes: obj.changes,
+        signer: signer
       }
 
       Postmaster.process_payload(params).deliver_now
@@ -159,6 +161,12 @@ class EventMailer
     @bunny_channel.reject(delivery_info.delivery_tag)
 
     unlisten if db_connection_error?(e)
+  end
+
+  def fetch_user(user)
+    return User.find_by(uid: user.uid) if user.uid.present?
+
+    OpenStruct.new(email: user.email, language: user.locale.to_s.to_sym)
   end
 
   def verify_jwt(payload, signer)
