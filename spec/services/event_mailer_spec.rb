@@ -5,22 +5,49 @@ describe EventMailer do
   let(:event_mailer) { EventMailer.new('', '', '')}
   let(:event) {
     {:record=>
-      {:user=>
-        {:uid=>"ID8434CD6E8E",
-         :email=>"admin@barong.io",
-         :role=>"admin",
-         :level=>1,
-         :otp=>false,
-         :state=>"active",
-         :referral_uid=>nil,
-         :created_at=>"2020-05-26T07:01:04Z",
-         :updated_at=>"2020-05-26T08:30:54Z"},
+      {:user=> user_payload,
        :user_ip=>"::1",
        :user_agent=>"PostmanRuntime/7.25.0"},
      :name=>"system.session.create",
      :state=>"sdasd"
     }
   }
+  let(:user_payload) {
+    {
+      :uid=>"ID8434CD6E8E",
+      :email=>"admin@example.com",
+      :role=>"admin",
+      :level=>1,
+      :otp=>false,
+      :state=>"active"
+    }
+  }
+
+  describe '#fetch_user' do
+    let(:user) { event_mailer.send(:fetch_user, JSON.parse(event.to_json, object_class: OpenStruct).record.user) }
+
+    context 'when user with uid' do
+      it 'try to find user from database' do
+        expect(User).to receive(:find_by)
+
+        user
+      end
+    end
+
+    context 'when user without uid, but with email and language' do
+      let(:user_payload) {
+        {
+          :email=>"member@example.com",
+          :locale => "ru"
+        }
+      }
+
+      it 'build user from email and language attributes' do
+        expect(user.email).to eq 'member@example.com'
+        expect(user.language).to eq :ru
+      end
+    end
+  end
 
   describe "#nested_hash_value" do
     it 'return event value' do
@@ -85,12 +112,12 @@ describe EventMailer do
       end
 
       it 'should skip event' do
-        expression[:not][:'record.user.email'] = 'admin@barong.io'
+        expression[:not][:'record.user.email'] = 'admin@example.com'
         expect(event_mailer.send(:skip_event?, event, expression)).to eq true
       end
 
       it 'shouldnt skip event' do
-        expression[:not][:'record.user.email'] = 'admin1@barong.io'
+        expression[:not][:'record.user.email'] = 'admin1@example.com'
         expect(event_mailer.send(:skip_event?, event, expression)).to eq false
       end
     end

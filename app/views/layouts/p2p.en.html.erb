@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title th:remove="all">Template for HTML email with inline image</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+</head>
+<body style="padding: 0; margin: 0;">
+  <table style="width: 100%;margin: 0;padding: 0;" border="0" cellpadding="0" cellspacing="0">
+    <tbody>
+      <tr>
+        <td>
+          <center>
+            <br />
+            <table style="max-width: 600px; width: 100%; margin: 0; padding: 0;" border="0" cellpadding="0" cellspacing="0">
+              <tbody>
+                <tr>
+                  <td>
+                    <img alt="" border="0" width="100%" style="display: block" src="https://bitzlato.com/static/logo-black-old.png">
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div style="margin: 20px 0;">
+                      <span style="color:#000000;font: 20px 'Times New Roman', Times, serif;font-weight: 600;line-height: 25px;-webkit-text-size-adjust: none;text-transform: uppercase;width: 100%;display: block;text-align: center;">
+                        <%= yield :header %>
+                      </span>
+                    </div>
+                  </td>
+                </tr>
+                <%= yield %>
+                <tr>
+                  <td>
+                    <div style="margin: 0 0 30px;">
+                      <span style="color:#000000;font: 16px 'Times New Roman', Times, serif;line-height: 25px;-webkit-text-size-adjust: none;">
+                        <%= "Confirmation of the transaction can be done within #{@record.maxValid} minutes" %>
+                      </span>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div style="margin: 0 0 30px;">
+                      <span style="color:#000000;font: 16px 'Times New Roman', Times, serif;line-height: 25px;-webkit-text-size-adjust: none;">
+                        Please do not share this code with anyone, not even real customer support or security!
+                      </span>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div style="margin: 0 0 30px;">
+                      <span style="color:#000000;font: 16px 'Times New Roman', Times, serif;line-height: 25px;-webkit-text-size-adjust: none;">
+                        If you have not request this operation, immediately contact our
+                        <%= link_to 'support service', @record.supportUrl, target: '_blank', rel: 'noreferrer noopener' %>
+                      </span>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <div style="margin: 30px 0 0;">
+                      <span style="color:#000000; font: 16px 'Times New Roman', Times, serif; line-height: 25px;-webkit-text-size-adjust: none;" >
+                        Regards, <br>
+                        <em>The Bitzlato Team</em>
+                      </span>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </center>
+        </td>
+      </tbody>
+    </table>
+  </body>
+</html>
