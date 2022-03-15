@@ -2,7 +2,7 @@
 <h1 align="center">
   Hello!
 </h1>
-<h2>Use this <b>unique link</b> to confirm your email:<br><b><%= @user.email %></b></h2>
+<h2>Use this <b>unique link</b> to confirm your email:<br><b><%= @email %></b></h2>
   <div align="center">
   <a href="<%= @record.domain %>/accounts/confirmation?confirmation_token=<%= @record.token %>&lang=en" class ='btn' >Confirm</a>
 </div>
