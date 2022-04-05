@@ -40,6 +40,17 @@ events:
         subject: Сброс Пароля
         template_path: password_reset
 
+  - name: New Password Confirmation
+    key: user.password.new.token
+    exchange: barong_system
+    templates:
+      en:
+        subject: New Password Confirmation
+        template_path: new_password_confirmation
+      ru:
+        subject: Подтверждение Нового Пароля
+        template_path: new_password_confirmation
+
   - name: 2FA Activated
     key: label.created
     expression:
