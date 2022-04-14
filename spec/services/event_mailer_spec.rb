@@ -25,10 +25,11 @@ describe EventMailer do
 
   describe '#fetch_user' do
     let(:user) { event_mailer.send(:fetch_user, JSON.parse(event.to_json, object_class: OpenStruct).record.user) }
+    let(:user_from_database) { double }
 
     context 'when user with uid' do
       it 'try to find user from database' do
-        expect(User).to receive(:find_by)
+        expect(User).to receive(:find_by).and_return(user_from_database)
 
         user
       end

@@ -117,15 +117,16 @@ class EventMailer
     obj   = JSON.parse(event.to_json, object_class: OpenStruct)
 
     user = fetch_user(obj.record.user)
+    language = user.language
 
-    Rails.logger.warn { "User #{user.email} has '#{user.language}' email language" }
+    Rails.logger.warn { "User #{user.email} has '#{language}' email language" }
 
     configs.each do |config|
       template_config = config.fetch(:templates).transform_keys(&:downcase)
 
-      unless template_config.keys.include?(user.language)
-        Rails.logger.error { "Language #{user.language} is not supported. Skipping." }
-        next
+      unless template_config.keys.include?(language)
+        Rails.logger.warn { "Language #{language} is not supported. Use #{Mailer::App.config.default_language} language" }
+        language = Mailer::App.config.default_language.to_sym
       end
 
       if config[:expression].present? && skip_event?(event, config[:expression])
@@ -134,10 +135,10 @@ class EventMailer
       end
 
       params = {
-        subject: template_config[user.language][:subject],
-        template_name: template_config[user.language][:template_path],
+        subject: template_config[language][:subject],
+        template_name: template_config[language][:template_path],
         email: user.email,
-        locale: user.language,
+        locale: language,
         record: obj.record,
         changes: obj.changes,
         signer: signer
@@ -164,7 +165,7 @@ class EventMailer
   end
 
   def fetch_user(user)
-    return User.find_by(uid: user.uid) if user.uid.present?
+    return User.find_by!(uid: user.uid) if user.uid.present?
 
     OpenStruct.new(email: user.email, language: user.locale.to_s.to_sym)
   end
