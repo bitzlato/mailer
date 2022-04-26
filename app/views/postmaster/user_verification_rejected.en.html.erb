@@ -1,0 +1,23 @@
+<h1 align="center">Dear customer!</h1>
+<h2>
+  Your Verification has been rejected.<br/>
+  Reasons for rejection:<br/>
+  <%= @record.reason %>
+</h2>
+<h2>Please take note of the remarks above and verify again</h2>
+<div style="background-color: #EEBE13; width: 50%;height: 40px;margin: 20px auto 20px;border: 2px solid #EEBE13;border-radius: 10px;">
+  <center style="margin: 8px;">
+    <a style="text-decoration-line: none; color:#ffffff; font-size: 14px; font-family: 'Montserrat', sans-serif; line-height: 25px;-webkit-text-size-adjust: none;text-align: center;width: 100%;display: block;"
+       href=<%= @record.verification_url %>
+         target="_blank"
+       rel="noreferrer">
+      Go to verification
+    </a>
+  </center>
+</div>
+
+<h2>This email is sent automatically and there is no need to reply back.</h2>
+
+<h2>If you have any problems, please contact our support and they will help you<br/></h2>
+<h2 class = 'bold'>Regards,</h2>
+<h2 class ='bz'>Bitzlato Team</h2>
