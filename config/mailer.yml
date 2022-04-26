@@ -93,6 +93,28 @@ events:
         subject: Новый вход
         template_path: session_create
 
+  - name: User Verification Approved
+    key: user.verification_approved
+    exchange: barong_system
+    templates:
+      en:
+        subject: Verification Is Approved
+        template_path: user_verification_approved
+      ru:
+        subject: Верификация Одобрена
+        template_path: user_verification_approved
+
+  - name: User Verification Rejected
+    key: user.verification_rejected
+    exchange: barong_system
+    templates:
+      en:
+        subject: Verification Rejected
+        template_path: user_verification_rejected
+      ru:
+        subject: Верификация Отклонена
+        template_path: user_verification_rejected
+
   - name: Deposit Updated
     key: deposit.updated
     exchange: peatio

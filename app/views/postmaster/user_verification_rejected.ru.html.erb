@@ -1,0 +1,23 @@
+<h1 align="center">Уважаемый клиент!</h1>
+<h2>
+  Ваша заявка на верификацию отклонена.<br/>
+  Причины отказа:<br/>
+  <%= @record.reason %>
+</h2>
+<h2>Пожалуйста, примите во внимание замечания что описаны выше, и подайте новую заявку на верификацию</h2>
+<div style="background-color: #212473; width: 50%;height: 40px;margin: 20px auto 20px;border: 2px solid #c6c5c5;border-radius: 10px;">
+  <center style="margin: 8px;">
+    <a style="text-decoration-line: none; color:#ffffff; font: 14px 'Times New Roman', Times, serif; line-height: 25px;-webkit-text-size-adjust: none;text-align: center;width: 100%;display: block;"
+       href=<%= @record.verification_url %>
+         target="_blank"
+       rel="noreferrer">
+      пройти верификацию
+    </a>
+  </center>
+</div>
+
+<h2>Обратите внимание! Это письмо отправлено автоматически, и на него не надо отвечать</h2>
+
+<h2>Если у Вас возникли сложности, обратитесь в нашу <a href="https://t.me/HELP_BITZLATO_BOT">службу поддержки</a> и они обязательно помогут Вам<br/></h2>
+<h2 class = 'bold'>С уважением,</h2>
+<h2 class ='bz'>Команда Bitzlato!</h2>
