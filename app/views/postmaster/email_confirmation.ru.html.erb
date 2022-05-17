@@ -1,7 +1,7 @@
 <img src="https://bitzlato.com/static/mail_check.png" alt="Bitzlato" class ='mainImg'>
 <h1 align="center">Приветствуем!</h1>
 <h2>Используйте эту <b>уникальную ссылку</b> или <b>пин код</b> для подтверждения вашей почты <b><%= @email %></b></h2>
-<h3>ПИН КОД: <%= @record.pin_code %></h3>
+<h3 align="center">ПИН КОД: <%= @record.pin_code %></h3>
 <div align="center">
   <a href="<%= @record.domain %>/accounts/confirmation?confirmation_token=<%= @record.token %>&lang=en" class ='btn' >Принять</a>
 </div>

@@ -3,7 +3,7 @@
   Hello!
 </h1>
 <h2>Use this <b>unique link</b> or <b>pin code</b> to confirm your email:<br><b><%= @email %></b></h2>
-<h3>PIN CODE: <%= @record.pin_code %></h3>
+<h3 align="center">PIN CODE: <%= @record.pin_code %></h3>
 <div align="center">
   <a href="<%= @record.domain %>/accounts/confirmation?confirmation_token=<%= @record.token %>&lang=en" class ='btn' >Confirm</a>
 </div>
