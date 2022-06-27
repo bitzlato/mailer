@@ -1,11 +1,14 @@
 <img src="https://bitzlato.com/static/mail_check.png" alt="Bitzlato" class ='mainImg'>
 <h1 align="center">
-  Hello!
+Hello!
 </h1>
-<h2>Use this <b>unique link</b> or <b>pin code</b> to confirm your email:<br><b><%= @email %></b></h2>
-<h3 align="center">PIN CODE: <%= @record.pin_code %></h3>
+<h2>Use this <b>unique link</b> to confirm your email:<br><b><%= @user.email %></b></h2>
 <div align="center">
   <a href="<%= @record.domain %>/accounts/confirmation?confirmation_token=<%= @record.token %>&lang=en" class ='btn' >Confirm</a>
+</div>
+<h2>Or copy the <b>unique code</b> and enter it in the appropriate place on the site:</h2>
+<div align="center">
+  <b><%= @record.pin_code %></b>
 </div>
 <h2 class = 'bold'>Have a great deals!</h2>
 <h2 class ='bz'>Bitzlato Team!</h2>
