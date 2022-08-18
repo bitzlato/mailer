@@ -43,3 +43,5 @@ group :deploy do
   gem 'bugsnag-capistrano', require: false
   gem 'slackistrano', require: false
 end
+
+gem "sucker_punch", "~> 3.0"
