@@ -24,6 +24,17 @@ exchanges:
     signer: p2p
 
 events:
+  - name: Welcome Email
+    key: user.email.welcome
+    exchange: barong_system
+    templates:
+      en:
+        subject: Welcome to the Bitzlato family!
+        template_path: welcome_email
+      ru:
+        subject: Добро пожаловать в семью Bitzlato!
+        template_path: welcome_email
+
   - name: Email Confirmation
     key: user.email.confirmation.token
     exchange: barong_system
