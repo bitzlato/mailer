@@ -139,17 +139,17 @@ class EventMailer
         template_name: template_config[language][:template_path],
         email: user.email,
         locale: language,
-        record: obj.record,
+        record: obj.record.to_h,
         changes: obj.changes,
         signer: signer
-      }
+      }.to_h
 
       Rails.logger.info { "params: #{params.to_h.inspect}" }
 
       if obj.record.wait_until
-        PostmasterWorker.set(wait_until: Time.at(obj.record.wait_until)).perform_later(params.to_h)
+        PostmasterWorker.set(wait_until: Time.at(obj.record.wait_until)).perform_later(params)
       else
-        PostmasterWorker.perform_now(params.to_h)
+        PostmasterWorker.perform_now(params)
       end
     end
 
