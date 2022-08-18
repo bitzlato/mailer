@@ -139,10 +139,10 @@ class EventMailer
         template_name: template_config[language][:template_path],
         email: user.email,
         locale: language,
-        record: obj.record.to_h,
-        changes: obj.changes,
+        record: event[:record],
+        changes: event[:changes],
         signer: signer
-      }.to_h
+      }
 
       Rails.logger.info { "params: #{params.to_h.inspect}" }
 
