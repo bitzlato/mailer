@@ -144,7 +144,11 @@ class EventMailer
         signer: signer
       }
 
-      Postmaster.process_payload(params).deliver_now
+      if obj.record.wait_until
+        PostmasterWorker.set(wait_until: Time.at(obj.record.wait_until)).perform_later(params)
+      else
+        PostmasterWorker.perform_now(params)
+      end
     end
 
     # Acknowledges a message
