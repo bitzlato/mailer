@@ -145,9 +145,9 @@ class EventMailer
       }
 
       if obj.record.wait_until
-        PostmasterWorker.set(wait_until: Time.at(obj.record.wait_until)).perform_later(params.to_h)
+        PostmasterWorker.set(wait_until: Time.at(obj.record.wait_until)).perform_later(params.as_json)
       else
-        PostmasterWorker.perform_now(params.to_h)
+        PostmasterWorker.perform_now(params.as_json)
       end
     end
 
