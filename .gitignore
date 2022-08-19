@@ -26,3 +26,5 @@
 
  .DS_Store
  .keep
+
+.env.development.local
