@@ -144,8 +144,6 @@ class EventMailer
         signer: signer
       }
 
-      Rails.logger.info { "params: #{params.to_h.inspect}" }
-
       if obj.record.wait_until
         PostmasterWorker.set(wait_until: Time.at(obj.record.wait_until)).perform_later(params)
       else
