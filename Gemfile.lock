@@ -271,6 +271,8 @@ GEM
     sshkit-interactive (0.3.0)
       sshkit (~> 1.12)
     strscan (3.0.1)
+    sucker_punch (3.0.1)
+      concurrent-ruby (~> 1.0)
     thor (1.2.1)
     timeout (0.2.0)
     tzinfo (2.0.4)
@@ -315,6 +317,7 @@ DEPENDENCIES
   slackistrano
   spring
   sprockets-rails
+  sucker_punch (~> 3.0)
 
 RUBY VERSION
    ruby 2.7.5p203
