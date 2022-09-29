@@ -119,6 +119,11 @@ class EventMailer
     user = fetch_user(obj.record.user)
     language = user.language
 
+    if user.email.blank?
+      Rails.logger.warn { "Skip process because user email is blank" }
+      return
+    end
+
     Rails.logger.warn { "User #{user.email} has '#{language}' email language" }
 
     configs.each do |config|
