@@ -28,3 +28,4 @@
  .keep
 
 .env.development.local
+.env
