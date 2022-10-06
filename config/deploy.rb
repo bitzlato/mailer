@@ -2,6 +2,20 @@
 
 lock '3.16'
 
+if ENV['VIA_BASTION']
+  require 'net/ssh/proxy/command'
+
+  # Use a default host for the bastion, but allow it to be overridden
+  bastion_host = ENV['BASTION_HOST'] || 'bastion.example.com'
+
+  # Use the local username by default
+  bastion_user = ENV['BASTION_USER'] || ENV['USER']
+
+  # Configure Capistrano to use the bastion host as a proxy
+  ssh_command = "ssh #{bastion_user}@#{bastion_host} -W %h:%p"
+  set :ssh_options, proxy: Net::SSH::Proxy::Command.new(ssh_command)
+end
+
 set :user, 'app'
 set :application, 'mailer'
 
