@@ -144,7 +144,7 @@ class EventMailer
         signer: signer
       }
 
-      if obj.record.wait_until && obj.record.wait_until.to_d > 0
+      if obj.record.wait_until && obj.record.wait_until.to_d > 0 && Time.at(obj.record.wait_until) > 10.seconds.since
         PostmasterWorker.set(wait_until: Time.at(obj.record.wait_until)).perform_later(params)
       else
         PostmasterWorker.perform_now(params)
