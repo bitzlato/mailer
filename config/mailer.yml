@@ -8,6 +8,10 @@ keychain:
   p2p:
     algorithm: RS256
     value: "<%= ENV['P2P_JWT_PUBLIC_KEY'] %>"
+  whaler:
+    algorithm: RS256
+    value: "<%= ENV['WHALER_JWT_PUBLIC_KEY'] %>"
+
 
 exchanges:
   barong_system:
@@ -22,6 +26,9 @@ exchanges:
   p2p:
     name: p2p.events.email
     signer: p2p
+  whaler:
+    name: whaler.events.email
+    signer: whaler
 
 events:
   - name: Welcome Email
@@ -265,6 +272,16 @@ events:
         subject: Создание Чека
         template_path: p2p/voucher_creation
 
+  - name: [Promo] Reward for passing the KYC
+    key: promo.kyc_verification_passed
+    exchange: whaler
+    templates:
+      en:
+        subject: Reward for passing the KYC
+        template_path: whaler/kyc_verification_passed
+      ru:
+        subject: Вознаграждение за прохождение KYC
+        template_path: whaler/kyc_verification_passed
 
   # expression example
   # - name: Session Create
