@@ -117,6 +117,12 @@ class EventMailer
     obj   = JSON.parse(event.to_json, object_class: OpenStruct)
 
     user = fetch_user(obj.record.user)
+
+    if user.email.blank?
+      Rails.logger.warn { "Skip event from #{signer} without user email. Event payload - #{result[:payload]}" }
+      return
+    end
+
     language = user.language
 
     Rails.logger.warn { "User #{user.email} has '#{language}' email language" }
