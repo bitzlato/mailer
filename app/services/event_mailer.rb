@@ -120,6 +120,7 @@ class EventMailer
 
     if user.email.blank?
       Rails.logger.warn { "Skip event from #{signer} without user email. Event payload - #{result[:payload]}" }
+      @bunny_channel.ack(delivery_info.delivery_tag)
       return
     end
 
