@@ -1,16 +1,12 @@
-<h1 align="center">Congratulations!</h1>
-<h2>Your verification request #<%= @record.verification_id %> has been approved. Now you can start trading!</h2>
-<h2>
-  For answers and tips on any topic, go to our <a href="https://bitzlato.bz/knowledgebase/">knowledge center</a> or contact <a href="https://t.me/HELP_BITZLATO_BOT">support</a>
-  <br/>
-  To stay up-to-date on news, promotions, and giveaways, join our <a href="https://t.me/bitzlato_ru">Telegram community</a>
-</h2>
+<h2> Congratulations! Your application for verification in the Bitzlato service has been successfully approved!🥳 Enjoy P2P exchange, store coins and make a quick withdrawal!</h2>
+
+<h2>You can choose a convenient way to use the service: ✅ Telegram Multibot: @BZ_CHANGE_BOT ✅ Web version: bitzlato.net ✅ Mobile App: Play Market — https://bitzlato.club/playstore App Store — https://bitzlato.club/_appstore <h2>
 
 <%- if @record.voucher.present? %>
   <h2>
-    Your voucher for <%= number_to_currency(@record.voucher[:amount], unit: @record.voucher[:cc_code], format: '%n %u', precision: 8, strip_insignificant_zeros: true) %> can be picked up by the <%= link_to "link", @record.voucher[:links][:web]%> or in <%= link_to 'Telegram', @record.voucher[:links][:telegram] %>
-  </h1>
+    <%- amount = number_to_currency(@record.voucher[:amount], unit: @record.voucher[:cc_code], format: '%n %u', precision: 8, strip_insignificant_zeros: true) %>
+    🎁 We give you a welcome bonus in the amount of <%= amount%> for the first transaction! To receive a gift, click on the link: <%= @record.voucher[:links][:web] %>
+  </h2>
 <% end %>
 
-<h2 class = 'bold'>Have a great deals!</h2>
-<h2 class ='bz'>Bitzlato Team!</h2>
+<h2 class = 'bold'>Thank you for choosing Bitzlato!</h2>

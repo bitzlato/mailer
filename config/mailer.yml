@@ -109,10 +109,10 @@ events:
     exchange: barong_system
     templates:
       en:
-        subject: Verification Is Approved
+        subject: Your application for verification in Bitzlato has been approved!
         template_path: user_verification_approved
       ru:
-        subject: Верификация Одобрена
+        subject: Ваша заявка на верификацию в Bitzlato одобрена!
         template_path: user_verification_approved
 
   - name: User Verification Rejected
