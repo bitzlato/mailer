@@ -68,6 +68,7 @@ ru:
         errored: ошибка
         refunding: возврат
         rolledback: возврат
+        aml_check: проверка
     withdraw_updated:
       new_state:
         errored: ошибка
