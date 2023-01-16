@@ -62,9 +62,9 @@ ru:
         invoiced: выставлен счет
         canceled: отменен
         rejected: отклонен
-        accepted: принят
+        accepted: ожидает зачисления
         skipped: пропущен
-        dispatched: отправлен
+        dispatched: зачислен
         errored: ошибка
         refunding: возврат
         rolledback: возврат
