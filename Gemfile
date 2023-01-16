@@ -26,6 +26,7 @@ end
 group :development do
   gem 'spring'
   gem 'foreman'
+  gem 'mailcatcher'
 end
 
 group :deploy do
